@@ -1,0 +1,5 @@
+
+
+# This directory intentionally contains no policy resources yet.
+# Future resource types can include jsc/ JavaScript, java/ JARs, and xsl/ XSLT.
+# Resources support policies; they are not automatically executed.

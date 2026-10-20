@@ -1,0 +1,22 @@
+# Git-only configuration: Apigee does not read this file.
+# It prevents local machine files and sensitive material from being committed.
+
+# Local editor and operating-system files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Generated proxy archives. The source apiproxy/ bundle remains versioned;
+# create the ZIP only when you later import it into Apigee.
+*.zip
+
+# Never commit local environment overrides, private keys, or certificates.
+# Backend host values should later be configured safely per environment.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx

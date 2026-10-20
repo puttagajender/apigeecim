@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  API PROXY DESCRIPTOR (bundle root configuration)
+
+  Apigee reads this file when it imports the apiproxy/ bundle. It gives the
+  proxy its unique name and identifies the endpoint configurations belonging
+  to it. This file is configuration metadata; it does not run once per HTTP
+  request like the ProxyEndpoint and TargetEndpoint flows do.
+-->
+<APIProxy name="identity-apigee-proxy">
+  <!-- Human-friendly name shown in the Apigee UI. -->
+  <DisplayName>identity-apigee-proxy</DisplayName>
+  <!-- Human-readable purpose only; this does not change request behavior. -->
+  <Description>Minimal reverse proxy for the Identity Spring Boot service.</Description>
+
+  <!--
+    Lists inbound endpoint names. "default" refers to
+    apiproxy/proxies/default.xml, whose root element is
+    <ProxyEndpoint name="default">.
+  -->
+  <ProxyEndpoints>
+    <ProxyEndpoint>default</ProxyEndpoint>
+  </ProxyEndpoints>
+
+  <!--
+    Lists outbound endpoint names. "default" refers to
+    apiproxy/targets/default.xml, whose root element is
+    <TargetEndpoint name="default">.
+  -->
+  <TargetEndpoints>
+    <TargetEndpoint>default</TargetEndpoint>
+  </TargetEndpoints>
+</APIProxy>

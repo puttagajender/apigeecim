@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  TARGET ENDPOINT = the outbound, backend-facing side of this API proxy.
+
+  This endpoint is selected by the RouteRule in proxies/default.xml:
+    <TargetEndpoint>default</TargetEndpoint>
+
+  The name="default" below must match that RouteRule reference.
+-->
+<TargetEndpoint name="default">
+  <!--
+    Target PreFlow runs for every request AFTER routing selects this target but
+    BEFORE Apigee calls the backend. It also runs for every backend response.
+    It is empty because no backend-side policies are needed yet.
+  -->
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+
+  <!-- Container for optional, conditional backend-side processing flows. -->
+  <Flows/>
+
+  <!-- Empty final processing stage for backend requests and responses. -->
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+
+  <!--
+    Defines an outbound HTTP/HTTPS call. This is the connection from Apigee to
+    the Identity Spring Boot service.
+  -->
+  <HTTPTargetConnection>
+    <!--
+      Deliberate placeholder: replace only IDENTITY_SERVICE_HOST when a real,
+      network-reachable backend exists. Do not put credentials in this URL.
+
+      Apigee combines this target base path with proxy.pathsuffix:
+        target URL base     = https://IDENTITY_SERVICE_HOST/identity
+        proxy.pathsuffix    = /1/100123
+        final backend call  = GET https://IDENTITY_SERVICE_HOST/identity/1/100123
+
+      Learning-only local equivalent:
+        http://localhost:8081/identity
+      A deployed cloud Apigee runtime cannot normally reach your laptop's
+      localhost, because localhost would mean the Apigee runtime itself.
+    -->
+    <URL>https://IDENTITY_SERVICE_HOST/identity</URL>
+  </HTTPTargetConnection>
+</TargetEndpoint>

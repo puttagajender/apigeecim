@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  PROXY ENDPOINT = the inbound, client-facing side of this API proxy.
+
+  Example client request:
+    GET /identity/v1/1/100123
+
+  Apigee matches the BasePath below, runs this endpoint's request flow, then
+  follows RouteRule to a TargetEndpoint. XML comments are documentation only;
+  Apigee ignores them at runtime.
+-->
+<ProxyEndpoint name="default">
+  <!--
+    PreFlow runs for EVERY request before conditional flows and routing, and
+    for EVERY response on its way back to the client. It is empty now: this
+    proxy deliberately has no security, header, or transformation policy.
+
+    Future request policies would be attached as:
+      <Request><Step><Name>Policy-Name</Name></Step></Request>
+    A policy XML file in policies/ does not execute until a Step references it.
+  -->
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response/>
+  </PreFlow>
+
+  <!--
+    Container for conditional operation flows. It is empty because this basic
+    reverse proxy accepts the matching paths without operation-specific logic.
+
+    A future <Flow> could use a <Condition> such as request.verb = "GET" or
+    proxy.pathsuffix MatchesPath "/{companyNumber}/{customerNumber}". A Flow
+    runs only when its Condition evaluates to true.
+  -->
+  <Flows/>
+
+  <!--
+    PostFlow runs after conditional flows. It is empty now. It is commonly
+    used for logic that should happen after normal request/response processing.
+  -->
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response/>
+  </PostFlow>
+
+  <!-- HTTP-facing configuration for callers of this proxy. -->
+  <HTTPProxyConnection>
+    <!--
+      BasePath is the public URI prefix that selects this proxy in Apigee.
+
+      For GET /identity/v1/1/100123:
+        proxy.basepath   = /identity/v1
+        proxy.pathsuffix = /1/100123
+
+      proxy.pathsuffix is an Apigee runtime flow variable: the part remaining
+      after the BasePath. It will be appended to the TargetEndpoint URL path.
+    -->
+    <BasePath>/identity/v1</BasePath>
+    <!-- Optional HTTP proxy properties. None are required for this proxy. -->
+    <Properties/>
+  </HTTPProxyConnection>
+
+  <!--
+    RouteRule chooses where the request goes after proxy-side request flows.
+    The text "default" MUST match the name attribute in:
+      apiproxy/targets/default.xml
+      <TargetEndpoint name="default">
+  -->
+  <RouteRule name="default">
+    <TargetEndpoint>default</TargetEndpoint>
+  </RouteRule>
+</ProxyEndpoint>
